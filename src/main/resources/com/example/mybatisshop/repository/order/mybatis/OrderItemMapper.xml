@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mybatisshop.repository.order.mybatis.OrderItemMapper">
+
+    <insert id="save" useGeneratedKeys="true">
+        INSERT INTO order_item (order_id, item_id, count, order_price)
+        VALUES (#{orderId}, #{itemId}, #{count}, #{price})
+    </insert>
+
+
+    <resultMap id="myMap" type="com.example.mybatisshop.domain.order.OrderWithOrderItems">
+        <id property="orderId" column="o_id"/>
+        <result property="status" column="o_status" />
+
+        <collection property="orderItems" ofType="com.example.mybatisshop.domain.order.OrderItem">
+            <id property="id" column="oi_id" />
+            <result property="itemId" column="oi_item_id" />
+            <result property="count" column="oi_count" />
+            <result property="orderPrice" column="oi_order_price" />
+        </collection>
+    </resultMap>
+
+
+    <select id="findByOrderId" resultMap="myMap">
+        SELECT
+            o.id AS o_id,
+            o.status AS o_status,
+            oi.id AS oi_id,
+            oi.item_id AS oi_item_id,
+            oi.count AS oi_count,
+            oi.order_price AS oi_order_price
+        FROM
+            orders o
+        JOIN
+            order_item oi on o.id = oi.order_id
+        WHERE
+            o.id = #{orderId}
+    </select>
+
+
+</mapper>

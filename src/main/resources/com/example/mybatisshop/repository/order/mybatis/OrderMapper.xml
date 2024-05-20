@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.mybatisshop.repository.order.mybatis.OrderMapper">
+
+<!--    VO의 프로퍼티 아이디명으로 생성된 아이디 반환-->
+    <insert id="save" useGeneratedKeys="true" keyProperty="orderId">
+        INSERT INTO orders (status)
+        VALUES ('ORDER')
+    </insert>
+
+
+
+
+
+
+</mapper>
+
